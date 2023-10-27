@@ -1,5 +1,6 @@
 package com.example.basicpermisions;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -29,8 +30,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             requestPermissions(new String[]{Manifest.permission.CALL_PHONE},1987);
         }
         else {
-            Intent llamarmama = new Intent(Intent.ACTION_CALL, Uri.parse("tel: 871 1585205"));
-            startActivity(llamarmama);
+            llamar();
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode==1987){
+            if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                llamar();
+            }
+        }
+    }
+    public void llamar(){
+        Intent llamarmama = new Intent(Intent.ACTION_CALL, Uri.parse("tel: 871 1585205"));
+        startActivity(llamarmama);
     }
 }
